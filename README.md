@@ -28,3 +28,10 @@ Author
 ------
 
 Cem Keylan <cem@ckyln.com>
+
+Links
+-----
+
+[0]: https://github.com/joestandring/dwm-bar
+
+[1]: http://tools.suckless.org/slstatus/
