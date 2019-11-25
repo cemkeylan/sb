@@ -3,18 +3,12 @@
 
 state() {
 	state="$(cat "/sys/class/power_supply/$BATTERY/status")"
-	case $state in
-		Full) printf "=" ;;
-		Discharging) printf "-" ;;
-		Charging) printf "+" ;;
-		*) printf "?" ;;
-	esac
+	case $state in Full) printf "=" ;; Discharging) printf "-" ;;
+		Charging) printf "+" ;; *) printf "?" ;; esac
 }
 
 
-capacity() {
-	tr -d '\n' < "/sys/class/power_supply/$BATTERY/capacity"
-}
+capacity() { tr -d '\n' < "/sys/class/power_supply/$BATTERY/capacity"; }
 
 battery() { 
 	[ -z "$BATTERY" ] && BATTERY="BAT0"
