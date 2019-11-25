@@ -33,7 +33,7 @@ fi
 [ -z "$DELIMETER" ] && DELIMETER="|"
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
 
-for function in "$FUNCPATH/"* ; do . "$function"; done
+for func in "$FUNCPATH/"* ; do . "$func"; done
 [ -z "$nobar" ] && printf "$$\\n" > "/tmp/sb-$USER.pid"
 
 if ! command -V sb >/dev/null 2>&1; then
