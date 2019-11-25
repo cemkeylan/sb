@@ -15,8 +15,8 @@ install:
 	@sed "s#getfunctionpath#${PREFIX}/share/sb-func#g" < sb | sed "s#vnumber#${VERSION}#g" > ${DESTDIR}${PREFIX}/bin/sb
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/sb
 	@echo Installing sb function modules to ${DESTDIR}${PREFIX}/share/sb-func
-	@mkdir -p ${DESTDIR}${PREFIX}/share
-	@cp -rf func ${DESTDIR}${PREFIX}/share/sb-func
+	@mkdir -p ${DESTDIR}${PREFIX}/share/sb-func
+	@cp -f func/* ${DESTDIR}${PREFIX}/share/sb-func
 	@chmod 644 ${DESTDIR}${PREFIX}/share/sb-func/*
 	@echo Installing manuals to ${DESTDIR}${MANPREFIX}
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
