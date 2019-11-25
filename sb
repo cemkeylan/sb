@@ -25,7 +25,7 @@ elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then usage
 elif [ "$1" = "-n" ]; then nobar=1
 elif [ "$1" = "-x" ]; then 
 	! [ -e "/tmp/sb-$USER.pid" ] && printf "There is no running instance of sb\\n" && exit 1
-	kill $(cat /tmp/sb-$USER.pid); rm "/tmp/sb-$USER.pid"; exit 0
+	kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0
 fi
 
 
