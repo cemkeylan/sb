@@ -1,0 +1,12 @@
+# gets storage information from df
+# prints used/available
+
+storage() {
+	DISK="$1"
+	[ -z "$DISK" ] && DISK="/"
+	printf "$DISK: "
+	command df -h | grep "$DISK\$" | awk '{print $3}' | sed s/G// | tr -d '\n'
+	printf "/"
+	command df -h | grep "$DISK\$" | awk '{print $2}' | sed s/G/\ GB/ | tr -d '\n'
+	printf " $DELIMETER "
+}

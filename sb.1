@@ -1,0 +1,29 @@
+.TH "SB" "1" "sb-vnumber" "" ""
+.hy
+.SH NAME
+.PP
+sb - simple bar
+.SH DESCRIPTION
+.PP
+sb is a POSIX shell script that writes to WM_NAME to create a bar.
+.SH OPTIONS
+.TP
+.B -n
+Print to stdout instead of WM_NAME
+.TP
+.B -x
+Exit running instance of sb
+.TP
+.B -h
+Print usage information to stdout and exit
+.TP
+.B -v
+Print version number to stdout and exit
+.SH FILES
+.PP
+sb looks for \f[B]\[ti]/.config/sbrc\f[R] on startup
+.SH SEE ALSO
+.PP
+\f[B]sbrc\f[R](5)
+.SH AUTHORS
+Cem Keylan.

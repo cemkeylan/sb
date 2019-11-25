@@ -1,0 +1,34 @@
+.TH "SBRC" "5" "sb-vnumber" "" ""
+.hy
+.SH NAME
+.PP
+sbrc - define functions to run for \f[B]sb\f[R](1)
+.SH DESCRIPTION
+.PP
+sbrc is a file that can be added to customize the way \f[B]sb\f[R]
+functions.
+.PP
+Currently, the variables are,
+.TP
+.B \f[B]NEWMAILDIR\f[R]
+this is where new mails are stored on your computer,
+e.g.\ \[ti]/.local/share/mail/foo/INBOW/new
+.TP
+.B \f[B]BATTERY\f[R]
+this is the name of your batter, usually \f[B]BAT0\f[R]
+.TP
+.B \f[B]DATE\f[R]
+the way you would like to see date.
+see \f[B]date\f[R](1) for more details.
+.TP
+.B \f[B]SLEEPTIME\f[R]
+refresh interval (in seconds)
+.SH BAR FUNCTION
+.PP
+In the configuration, you can edit the \f[B]bar()\f[R] function, which
+you can fill with the modules, see sbrc.example for more details
+.SH SEE ALSO
+.PP
+\f[B]sb\f[R](1)
+.SH AUTHORS
+Cem Keylan.

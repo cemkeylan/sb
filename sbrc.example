@@ -1,0 +1,38 @@
+#
+# sb configuration
+#
+
+# Add this to ~/.config/sbrc
+
+# Delimeter. Default: "|"
+DELIMETER="|"
+
+# New mail directory Default:""
+# E.g. ~/.local/share/mail/account/INBOX/new
+NEWMAILDIR=""
+
+# Battery name. Default:"BAT0"
+BATTERY=""
+
+# Date function. Default: "%a %d %b %Y %H:%M"
+DATE="%a %d %b %Y %H:%M"
+
+# Refresh Interval. Default: "1"
+SLEEPTIME=""
+
+# Add the modules you want to run in the bar. Do not add the "sb_" part
+# If you want to add the battery module, type battery instead of sb_battery
+# To switch from top bar to bottom bar add DELIMETER=";" to the beginning of the
+# last module of the top bar
+bar() {
+	brightness
+	pulseaudio
+	battery
+	DELIMETER=";" datetime
+	storage
+	storage /home
+	ram
+	nightmode
+	gethostname
+	showmpd
+}

@@ -1,0 +1,11 @@
+# gets song info from mpd
+
+getmpd() {
+	mpc -f "[[%artist% - ]%title%]|[%file%]" 2>/dev/null | grep -v "volume:" | head -n 1 | tr '\n' ' '
+	mpc 2>/dev/null | awk 'NR==2' | awk '{print $3}'
+}
+
+showmpd() {
+	[ -z "$(getmpd)" ] && return 1
+	printf "Playing: $(getmpd) $DELIMETER "
+}

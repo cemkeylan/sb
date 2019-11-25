@@ -1,0 +1,7 @@
+# Gets brightness level and prints to stdout
+
+brightness() {
+	printf "BRI: "
+	xbacklight -get 2>/dev/null | cut -d . -f 1 | tr '\n' ' ' || return 1
+	printf "$DELIMETER "
+}

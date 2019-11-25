@@ -1,0 +1,10 @@
+# gets ip information from the ip
+# command and prints to stdout.
+# requires interface name as the argument.
+
+ipv4() {
+	[ -z "$1" ] && return 1
+	IPV4="$(ip a show "$1" 2>/dev/null | grep 'inet ' | cut -d : -f 2 | awk '{print $2}' | cut -d / -f 1)"
+	[ -z "$IPV4" ] && return 1
+	printf "$1: $IPV4 $DELIMETER "
+}

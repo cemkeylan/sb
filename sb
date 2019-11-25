@@ -1,0 +1,55 @@
+#!/usr/bin/env sh
+# See the LICENSE file for copyright and license details.
+
+FUNCPATH="getfunctionpath"
+VERSION="vnumber"
+
+usage() {
+	cat <<EOF
+${0#**/} [options]
+
+  Options:
+    -n      Print to stdout instead of the bar
+    -x      Kill existing sb instance
+    -h      Print this help and exit
+    -v      Print version number and exit
+
+${0##*/}-$VERSION
+2019 (c) Cem Keylan
+EOF
+exit 0
+}
+
+if [ "$1" = "-v" ] || [ "$1" = "--version" ]; then printf "${0##*/}-$VERSION\\n"; exit 0
+elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then usage
+elif [ "$1" = "-n" ]; then nobar=1
+elif [ "$1" = "-x" ]; then 
+	! [ -e "/tmp/sb-$USER.pid" ] && printf "There is no running instance of sb\\n" && exit 1
+	kill $(cat /tmp/sb-$USER.pid); rm "/tmp/sb-$USER.pid"; exit 0
+fi
+
+
+[ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
+[ -z "$DELIMETER" ] && DELIMETER="|"
+[ -z "$SLEEPTIME" ] && SLEEPTIME="1"
+
+for function in "$FUNCPATH/"* ; do . "$function"; done
+[ -z "$nobar" ] && printf "$$\\n" > "/tmp/sb-$USER.pid"
+
+if ! command -V sb >/dev/null 2>&1; then
+	bar() {
+		brightness
+		pulseaudio
+		battery
+		DELIMETER=; datetime
+		storage
+		storage /home
+		ram
+		nightmode
+		host
+		showmpd
+	}
+fi
+
+[ -z "$nobar" ] && while true; do xsetroot -name " $(bar)"; sleep 1; done && exit 0
+while true; do bar; sleep "$SLEEPTIME"; clear; done

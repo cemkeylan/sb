@@ -1,0 +1,6 @@
+# displays hostname
+
+gethostname() {
+	[ -n "$HOST" ] && printf "$HOST $DELIMETER " && return 0
+	printf "$(hostname) $DELIMETER " || return 1
+}
