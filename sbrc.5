@@ -27,6 +27,44 @@ refresh interval (in seconds)
 .PP
 In the configuration, you can edit the \f[B]bar()\f[R] function, which
 you can fill with the modules, see sbrc.example for more details
+.SH BAR MODULES
+.TP
+.B \f[B]battery\f[R]
+displays battery state and capacity
+.TP
+.B \f[B]brightness\f[R]
+displays screen brightness percentage
+.TP
+.B \f[B]datetime\f[R]
+displays datetime in requested format
+.TP
+.B \f[B]gethostname\f[R]
+displays host name
+.TP
+.B \f[B]ipv4\f[R]
+shows ipv4 address, requires interface name as argument
+.TP
+.B \f[B]mail\f[R]
+displays number of new mail, requires \f[B]NEWMAILDIR\f[R] to be set
+.TP
+.B \f[B]nightmode\f[R]
+displays CARBS nightmode information
+.TP
+.B \f[B]pulseaudio\f[R]
+displays volume information from pulseaudio
+.TP
+.B \f[B]ram\f[R]
+displays ram percentage
+.TP
+.B \f[B]showmpd\f[R]
+displays current song, if any
+.TP
+.B \f[B]ssid\f[R]
+displays connected wireless ssid, requires interface name as argument
+.TP
+.B \f[B]storage\f[R]
+displays used/total disk space in GB, takes arguments for directories,
+\f[B]e.g.\ storage /home\f[R]
 .SH SEE ALSO
 .PP
 \f[B]sb\f[R](1)
