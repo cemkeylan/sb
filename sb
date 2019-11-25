@@ -51,5 +51,5 @@ if ! command -V sb >/dev/null 2>&1; then
 	}
 fi
 
-[ -z "$nobar" ] && while true; do xsetroot -name " $(bar)"; sleep 1; done && exit 0
+[ -z "$nobar" ] && while true; do xsetroot -name " $(bar)"; sleep "$SLEEPTIME"; done && exit 0
 while true; do bar; sleep "$SLEEPTIME"; clear; done
