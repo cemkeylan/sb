@@ -6,7 +6,7 @@ VERSION="vnumber"
 
 usage() {
 	cat <<EOF
-${0#**/} [options]
+${0##*/} [options]
 
   Options:
     -n      Print to stdout instead of the bar
