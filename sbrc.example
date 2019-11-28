@@ -34,5 +34,6 @@ bar() {
 	ram
 	nightmode
 	gethostname
+	sfeed_new "$HOME/.sfeed/main" "Feeds"
 	showmpd
 }
