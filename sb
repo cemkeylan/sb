@@ -36,17 +36,17 @@ fi
 for func in "$FUNCPATH/"* ; do . "$func"; done
 [ -z "$nobar" ] && printf "$$\\n" > "/tmp/sb-$USER.pid"
 
-if ! command -V sb >/dev/null 2>&1; then
+if ! command -V bar >/dev/null 2>&1; then
 	bar() {
 		brightness
 		pulseaudio
 		battery
-		DELIMETER=; datetime
+		DELIMETER=";" datetime
 		storage
 		storage /home
 		ram
 		nightmode
-		host
+		gethostname
 		showmpd
 	}
 fi
