@@ -34,7 +34,10 @@ fi
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
 
 for func in "$FUNCPATH/"* ; do . "$func"; done
-[ -z "$nobar" ] && printf "$$\\n" > "/tmp/sb-$USER.pid"
+if [ -z "$nobar" ]; then
+	[ -e "/tmp/sb-$USER.pid" ] && printf "ERROR: sb is already running\\nIf you think otherwise, remove /tmp/sb-$USER.pid manually.\\n" && exit 1
+	printf "$$\\n" > "/tmp/sb-$USER.pid"
+fi
 
 if ! command -V bar >/dev/null 2>&1; then
 	bar() {
