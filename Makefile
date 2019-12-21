@@ -2,7 +2,7 @@
 # See LICENSE file for copyright and license details.
 
 # sb version
-VERSION = 1.1
+VERSION = 1.2
 
 # path
 PREFIX = /usr/local
