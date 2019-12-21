@@ -7,7 +7,7 @@ VERSION = 1.2
 # path
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
-CONF = ~/.config/sbrc
+CONF = \$$HOME/.config/sbrc
 
 all: options build
 
@@ -16,6 +16,7 @@ options:
 	@echo PREFIX = ${PREFIX}
 	@echo MANPREFIX = ${MANPREFIX}
 	@echo VERSION = ${VERSION}
+	@echo CONF = ${CONF}
 
 build:
 	@echo Generating sb from sb.in
