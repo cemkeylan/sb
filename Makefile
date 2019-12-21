@@ -1,7 +1,12 @@
 # sb
 # See LICENSE file for copyright and license details.
 
-include config.mk
+# sb version
+VERSION = 1.1
+
+# path
+PREFIX = /usr/local
+MANPREFIX = ${PREFIX}/share/man
 
 options:
 	@echo Installation options for sb
