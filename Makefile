@@ -7,6 +7,9 @@ VERSION = 1.1
 # path
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
+CONF = ~/.config/sbrc
+
+all: options build
 
 options:
 	@echo Installation options for sb
@@ -14,10 +17,17 @@ options:
 	@echo MANPREFIX = ${MANPREFIX}
 	@echo VERSION = ${VERSION}
 
-install:
-	@echo Installing sb to ${DESTDIR}${PREFIX}/bin
+build:
+	@echo Generating sb from sb.in
+	@rm -f sb
+	@sed "s#vnumber#${VERSION}#g" sb.in > sb
+	@sed -i "s#conffile#${CONF}#g" sb
+	@chmod +x sb
+
+install: all
+	@echo Installing sb ${VERSION} to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@sed "s#getfunctionpath#${PREFIX}/share/sb-func#g" < sb | sed "s#vnumber#${VERSION}#g" > ${DESTDIR}${PREFIX}/bin/sb
+	@sed "s#getfunctionpath#${PREFIX}/share/sb-func#g" < sb > ${DESTDIR}${PREFIX}/bin/sb
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/sb
 	@echo Installing sb function modules to ${DESTDIR}${PREFIX}/share/sb-func
 	@mkdir -p ${DESTDIR}${PREFIX}/share/sb-func
@@ -45,4 +55,8 @@ uninstall:
 	@echo Removing ${DESTDIR}${PREFIX}/share/sb
 	@rm -rf ${DESTDIR}${PREFIX}/share/sb
 
-.PHONY: options install uninstall
+clean:
+	@echo Removing sb
+	@rm -f sb
+
+.PHONY: all options build install uninstall clean

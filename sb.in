@@ -29,7 +29,7 @@ elif [ "$1" = "-x" ]; then
 fi
 
 
-[ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
+[ -e "conffile" ] && . "conffile"
 [ -z "$DELIMETER" ] && DELIMETER="|"
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
 
