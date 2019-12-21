@@ -20,6 +20,11 @@ DATE="%a %d %b %Y %H:%M"
 # Refresh Interval. Default: "1"
 SLEEPTIME=""
 
+# If the variable is nonzero it will kill the existing
+# sb instance, if the variable is empty sb will exit with
+# exit-code 1.
+KILLEXISTING=""
+
 # Add the modules you want to run in the bar. Do not add the "sb_" part
 # If you want to add the battery module, type battery instead of sb_battery
 # To switch from top bar to bottom bar add DELIMETER=";" to the beginning of the

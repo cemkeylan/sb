@@ -35,7 +35,10 @@ fi
 
 for func in "$FUNCPATH/"* ; do . "$func"; done
 if [ -z "$nobar" ]; then
-	[ -e "/tmp/sb-$USER.pid" ] && printf "ERROR: sb is already running\\nIf you think otherwise, remove /tmp/sb-$USER.pid manually.\\n" && exit 1
+	if [ -e "/tmp/sb-$USER.pid" ] ; then
+		[ -z "$KILLEXISTING" ] && printf "ERROR: sb is already running\\nIf you think otherwise, remove /tmp/sb-$USER.pid manually.\\n" && exit 1
+		kill "$(cat "/tmp/sb-$USER.pid")" 2>/dev/null
+	fi
 	printf "$$\\n" > "/tmp/sb-$USER.pid"
 fi
 
