@@ -9,6 +9,9 @@ DELIMETER="|"
 
 # New mail directory Default:""
 # E.g. ~/.local/share/mail/account/INBOX/new
+# Note: You can also specify your mail directory
+# in the command itself. Just do
+# NEWMAILDIR="~/.local/share/mail/account/INBOX/new mail"
 NEWMAILDIR=""
 
 # Battery name. Default:"BAT0"
