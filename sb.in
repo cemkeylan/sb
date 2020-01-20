@@ -20,6 +20,17 @@ EOF
 exit 0
 }
 
+colorcheck() {
+	if [ "$COLORBAR" = true ]; then
+		COLOR_NORM="$(printf "\x01" )"
+		COLOR_SEL="$(printf "\x02" )"
+		COLOR_WARN="$(printf "\x03" )"
+		COLOR_URG="$(printf "\x04" )"
+		COLOR_SUCCESS="$(printf "\x05" )"
+		export COLOR_NORM COLOR_SEL COLOR_WARN COLOR_URG COLOR_SUCCESS
+	fi
+}
+
 if [ "$1" = "-v" ] || [ "$1" = "--version" ]; then printf "${0##*/}-$VERSION\\n"; exit 0
 elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then usage
 elif [ "$1" = "-n" ]; then nobar=1
@@ -32,6 +43,7 @@ fi
 [ -e "conffile" ] && . "conffile"
 [ -z "$DELIMETER" ] && DELIMETER="|"
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
+colorcheck
 
 for func in "$FUNCPATH/"* ; do . "$func"; done
 if [ -z "$nobar" ]; then

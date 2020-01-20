@@ -23,6 +23,11 @@ DATE="%a %d %b %Y %H:%M"
 # Refresh Interval. Default: "1"
 SLEEPTIME=""
 
+# Uncomment this if you want to enable color escapes
+# If you are using dwm, you need statuscolor patch and
+# 5 colours for this to work
+# COLORBAR="true"
+
 # If the variable is nonzero it will kill the existing
 # sb instance, if the variable is empty sb will exit with
 # exit-code 1.
