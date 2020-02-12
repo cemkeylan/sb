@@ -1,4 +1,4 @@
-.TH "SB" "1" "sb-vnumber" 
+.TH "SB" "1" "sb-vnumber" "Cem Keylan"
 .hy
 .SH NAME
 .PP
@@ -6,7 +6,12 @@ sb - simple bar
 .SH DESCRIPTION
 .PP
 sb is a POSIX shell script that writes to WM_NAME to create a bar.
+It uses xsetroot(1). You can use your own functions by adding new
+functions to your \f[I]~/.config/sb-func\f[R] directory
 .SH OPTIONS
+.TP
+.B -d
+Use the default configuration
 .TP
 .B -n
 Print to stdout instead of WM_NAME
@@ -24,6 +29,6 @@ Print version number to stdout and exit
 sb looks for \f[B]\[ti]/.config/sbrc\f[R] on startup
 .SH SEE ALSO
 .PP
-\f[B]sbrc\f[R](5)
+sbrc(5), xsetroot(1)
 .SH AUTHORS
 Cem Keylan.
