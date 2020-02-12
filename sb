@@ -22,10 +22,10 @@ exit 0
 }
 
 while [ "$1" ] ; do case "$1" in 
-    -d|d) noconfig=1 ; shift ;;
-    -v|v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
-    -n|n) nobar=1 ; shift ;; 
-    -x|x) ! [ -e "/tmp/sb-$USER.pid" ] && \
+    -d) noconfig=1 ; shift ;;
+    -v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
+    -n) nobar=1 ; shift ;; 
+    -x) ! [ -e "/tmp/sb-$USER.pid" ] && \
     	printf "There is no running instance of sb\\n" && exit 1
     kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 
     ;; 
