@@ -12,5 +12,5 @@ capacity() { tr -d '\n' < "/sys/class/power_supply/$BATTERY/capacity"; }
 
 battery() { 
 	[ -z "$BATTERY" ] && BATTERY="BAT0"
-	printf "BAT: $(state) $(capacity) $DELIMETER "
+	printf "BAT: $(state) $(capacity) $DELIMITER "
 }

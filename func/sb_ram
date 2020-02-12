@@ -5,5 +5,5 @@ ram() {
 	TOTAL="$(command free -m | grep Mem: | awk '{print $2}')"
 	printf "RAM: "
 	expr 100 \* "$USED" / "$TOTAL" | tr -d '\n' 
-	printf "%% $DELIMETER "
+	printf "%% $DELIMITER "
 }

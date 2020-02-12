@@ -8,5 +8,5 @@ storage() {
 	command df -h | grep "$DISK\$" | awk '{print $3}' | sed s/G// | tr -d '\n'
 	printf "/"
 	command df -h | grep "$DISK\$" | awk '{print $2}' | sed s/G/\ GB/ | tr -d '\n'
-	printf " $DELIMETER "
+	printf " $DELIMITER "
 }

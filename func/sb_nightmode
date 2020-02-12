@@ -3,5 +3,5 @@
 nightmode() {
 	printf "NM: "
 	nightmodecheck | tr '\n' ' ' || return 1
-	printf "$DELIMETER "
+	printf "$DELIMITER "
 }

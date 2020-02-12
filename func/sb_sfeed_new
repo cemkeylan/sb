@@ -9,5 +9,5 @@ sfeed_new() {
 	NAME="$2" && [ -z "$NAME" ] && NAME="Feed"
 	printf "$NAME: "
 	sfeed_plain "$LOCATION"/* | grep '^N' | wc -l | tr '\n' ' ' || return 1
-	printf "$DELIMETER "
+	printf "$DELIMITER "
 }

@@ -3,5 +3,5 @@
 pulseaudio() {
 	VOL="$(pamixer --get-volume-human | sed "s/%//g" | tr -d '\n' || return 1)"
 	! [ "$VOL" = "muted" ] && VOL="$VOL%%"
-	printf "VOL: $VOL $DELIMETER "
+	printf "VOL: $VOL $DELIMITER "
 }

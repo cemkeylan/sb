@@ -3,5 +3,5 @@
 datetime() {
 	[ -z "$DATE" ] && DATE="%a %d %b %Y %H:%M"
 	command date +"$DATE" | tr '\n' ' ' || return 1
-	printf "$DELIMETER "
+	printf "$DELIMITER "
 }

@@ -7,5 +7,5 @@ getmpd() {
 
 showmpd() {
 	[ -z "$(getmpd)" ] && return 1
-	printf "Playing: $(getmpd) $DELIMETER "
+	printf "Playing: $(getmpd) $DELIMITER "
 }
