@@ -3,9 +3,8 @@ VERSION = 1.3.1-p1
 PREFIX = /usr/local
 BINDIR = ${PREFIX}/bin
 MANPREFIX = ${PREFIX}/share/man
-CONF = \$$HOME/.config/sbrc
 
-install: all
+install:
 	mkdir -p ${DESTDIR}${BINDIR}
 	sed 's#FUNCPATH="./func"#FUNCPATH="${PREFIX}/share/sb-func"#g;s#VERSION="git"#VERSION="${VERSION}"#g' < sb > ${DESTDIR}${BINDIR}/sb
 	chmod +x ${DESTDIR}${BINDIR}/sb
@@ -22,4 +21,4 @@ uninstall:
 		${DESTDIR}${MANPREFIX}/man1/sb.1 \
 		${DESTDIR}${MANPREFIX}/man5/sbrc.5
 
-.PHONY: all install clean uninstall
+.PHONY: install uninstall
