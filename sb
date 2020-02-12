@@ -9,10 +9,10 @@ usage() {
 ${0##*/} [options]
 
   Options:
-    -n      Print to stdout instead of the bar
-    -x      Kill existing sb instance
-    -h      Print this help and exit
-    -v      Print version number and exit
+    n      Print to stdout instead of the bar
+    x      Kill existing sb instance
+    h      Print this help and exit
+    v      Print version number and exit
 
 ${0##*/}-$VERSION
 2019-2020 (c) Cem Keylan
@@ -20,20 +20,18 @@ EOF
 exit 0
 }
 
-if [ "$1" = "-v" ] || [ "$1" = "--version" ]; then printf "${0##*/}-$VERSION\\n"; exit 0
-elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then usage
-elif [ "$1" = "-n" ]; then nobar=1
-elif [ "$1" = "-x" ]; then 
+case "$1" in v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; h|help|-h|--help) usage ;; n) nobar=1 ;; x)
 	! [ -e "/tmp/sb-$USER.pid" ] && printf "There is no running instance of sb\\n" && exit 1
-	kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0
-fi
+	kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 ;; esac
 
 
-[ -e "conffile" ] && . "conffile"
+[ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
 [ -z "$DELIMETER" ] && DELIMETER="|"
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
 
-for func in "$FUNCPATH/"* ; do . "$func"; done
+for func in "$FUNCPATH/"* ; do [ -f "$func" ] && . "$func"; done
+for func in "$HOME/.config/sbfunc/"* ; do
+	[ -f "$func" ] && . "$func" ; done
 if [ -z "$nobar" ]; then
 	if [ -e "/tmp/sb-$USER.pid" ] ; then
 		[ -z "$KILLEXISTING" ] && printf "ERROR: sb is already running\\nIf you think otherwise, remove /tmp/sb-$USER.pid manually.\\n" && exit 1

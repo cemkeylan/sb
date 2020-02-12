@@ -5,18 +5,9 @@ BINDIR = ${PREFIX}/bin
 MANPREFIX = ${PREFIX}/share/man
 CONF = \$$HOME/.config/sbrc
 
-all: sb
-
-sb:
-	sed 's#conffile#${CONF}#g;s#VERSION="git"#VERSION="${VERSION}"#g' sb.in > sb
-	chmod +x sb
-
-clean:
-	rm -f sb
-
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
-	sed 's#FUNCPATH="./func"#FUNCPATH="${PREFIX}/share/sb-func"#g' < sb > ${DESTDIR}${BINDIR}/sb
+	sed 's#FUNCPATH="./func"#FUNCPATH="${PREFIX}/share/sb-func"#g;s#VERSION="git"#VERSION="${VERSION}"#g' < sb > ${DESTDIR}${BINDIR}/sb
 	chmod +x ${DESTDIR}${BINDIR}/sb
 	install -Dm644 -t ${DESTDIR}${PREFIX}/share/sb-func func/*
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
