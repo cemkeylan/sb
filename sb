@@ -33,9 +33,9 @@ exit 0
 esac
 
 
-[ "$noconfig" -eq 0 ] && [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
-[ -z "$DELIMITER" ] && DELIMITER="|"
-[ -z "$SLEEPTIME" ] && SLEEPTIME="1"
+[ "$noconfig" ] || { [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc" ;}
+[ "$DELIMITER" ] || DELIMITER="|"
+[ "$SLEEPTIME" ] || SLEEPTIME="1"
 
 for func in "$FUNCPATH/"* ; do [ -f "$func" ] && . "$func"; done
 for func in "$HOME/.config/sb-func/"* ; do
