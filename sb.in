@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 # See the LICENSE file for copyright and license details.
 
-FUNCPATH="getfunctionpath"
-VERSION="vnumber"
+FUNCPATH="./func"
+VERSION="git"
 
 usage() {
 	cat <<EOF

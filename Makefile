@@ -1,63 +1,34 @@
-# sb
-# See LICENSE file for copyright and license details.
-
-# sb version
 VERSION = 1.3.1-p1
 
-# path
 PREFIX = /usr/local
+BINDIR = ${PREFIX}/bin
 MANPREFIX = ${PREFIX}/share/man
 CONF = \$$HOME/.config/sbrc
 
-all: options build
+all: sb
 
-options:
-	@echo Installation options for sb
-	@echo PREFIX = ${PREFIX}
-	@echo MANPREFIX = ${MANPREFIX}
-	@echo VERSION = ${VERSION}
-	@echo CONF = ${CONF}
-
-build:
-	@echo Generating sb from sb.in
-	@rm -f sb
-	@sed "s#vnumber#${VERSION}#g" sb.in > sb
-	@sed -i "s#conffile#${CONF}#g" sb
-	@chmod +x sb
-
-install: all
-	@echo Installing sb ${VERSION} to ${DESTDIR}${PREFIX}/bin
-	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@sed "s#getfunctionpath#${PREFIX}/share/sb-func#g" < sb > ${DESTDIR}${PREFIX}/bin/sb
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/sb
-	@echo Installing sb function modules to ${DESTDIR}${PREFIX}/share/sb-func
-	@mkdir -p ${DESTDIR}${PREFIX}/share/sb-func
-	@cp -f func/* ${DESTDIR}${PREFIX}/share/sb-func
-	@chmod 644 ${DESTDIR}${PREFIX}/share/sb-func/*
-	@echo Installing manuals to ${DESTDIR}${MANPREFIX}
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man5
-	@sed "s#vnumber#${VERSION}#g" < sb.1 > ${DESTDIR}${MANPREFIX}/man1/sb.1
-	@sed "s#vnumber#${VERSION}#g" < sbrc.5 > ${DESTDIR}${MANPREFIX}/man5/sbrc.5
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/sb.1
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man5/sbrc.5
-	@echo Copying sbrc.example to ${DESTDIR}${PREFIX}/share/sb
-	@mkdir -p ${DESTDIR}${PREFIX}/share/sb
-	@cp -f sbrc.example ${DESTDIR}${PREFIX}/share/sb/sbrc.example
-
-uninstall:
-	@echo Removing sb from ${DESTDIR}${PREFIX}/bin
-	@rm -f ${DESTDIR}${PREFIX}/bin/sb
-	@echo Removing sb-func from ${DESTDIR}${PREFIX}/share
-	@rm -rf ${DESTDIR}${PREFIX}/share/sb-func
-	@echo Removing manuals from ${DESTDIR}${MANPREFIX}
-	@rm -f ${DESTDIR}${MANPREFIX}/man1/sb.1
-	@rm -f ${DESTDIR}${MANPREFIX}/man5/sbrc.5
-	@echo Removing ${DESTDIR}${PREFIX}/share/sb
-	@rm -rf ${DESTDIR}${PREFIX}/share/sb
+sb:
+	sed 's#conffile#${CONF}#g;s#VERSION="git"#VERSION="${VERSION}"#g' sb.in > sb
+	chmod +x sb
 
 clean:
-	@echo Removing sb
-	@rm -f sb
+	rm -f sb
 
-.PHONY: all options build install uninstall clean
+install: all
+	mkdir -p ${DESTDIR}${BINDIR}
+	sed 's#FUNCPATH="./func"#FUNCPATH="${PREFIX}/share/sb-func"#g' < sb > ${DESTDIR}${BINDIR}/sb
+	chmod +x ${DESTDIR}${BINDIR}/sb
+	install -Dm644 -t ${DESTDIR}${PREFIX}/share/sb-func func/*
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	sed 's#vnumber#${VERSION}#g' < sb.1 > ${DESTDIR}${MANPREFIX}/man1/sb.1
+	sed 's#vnumber#${VERSION}#g' < sbrc.5 > ${DESTDIR}${MANPREFIX}/man5/sbrc.5
+
+uninstall:
+	rm -rf \
+		${DESTDIR}${BINDIR}/sb \
+		${DESTDIR}${PREFIX}/share/sb-func \
+		${DESTDIR}${MANPREFIX}/man1/sb.1 \
+		${DESTDIR}${MANPREFIX}/man5/sbrc.5
+
+.PHONY: all install clean uninstall
