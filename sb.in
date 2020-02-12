@@ -15,7 +15,7 @@ ${0##*/} [options]
     -v      Print version number and exit
 
 ${0##*/}-$VERSION
-2019 (c) Cem Keylan
+2019-2020 (c) Cem Keylan
 EOF
 exit 0
 }
