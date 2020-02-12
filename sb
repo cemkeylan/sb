@@ -9,11 +9,11 @@ usage() {
 ${0##*/} [options]
 
   Options:
-    d      Use the default configuration
-    n      Print to stdout instead of the bar
-    x      Kill existing sb instance
-    h      Print this help and exit
-    v      Print version number and exit
+    -d      Use the default configuration
+    -n      Print to stdout instead of the bar
+    -x      Kill existing sb instance
+    -h      Print this help and exit
+    -v      Print version number and exit
 
 ${0##*/}-$VERSION
 2019-2020 (c) Cem Keylan
