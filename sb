@@ -18,7 +18,7 @@ ${0##*/} [options]
 ${0##*/}-$VERSION
 2019-2020 (c) Cem Keylan
 EOF
-exit 0
+exit 1
 }
 
 while [ "$1" ] ; do case "$1" in 
