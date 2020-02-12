@@ -21,16 +21,16 @@ EOF
 exit 0
 }
 
-[ "$1" ] && case "$1" in 
-    d) noconfig=1 ;;
-    v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
-    n) nobar=1 ;; 
-    x) ! [ -e "/tmp/sb-$USER.pid" ] && \
+while [ "$1" ] ; do case "$1" in 
+    -d|d) noconfig=1 ; shift ;;
+    -v|v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
+    -n|n) nobar=1 ; shift ;; 
+    -x|x) ! [ -e "/tmp/sb-$USER.pid" ] && \
     	printf "There is no running instance of sb\\n" && exit 1
     kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 
     ;; 
     *) usage ;;
-esac
+esac ; done
 
 
 [ "$noconfig" ] || { [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc" ;}
