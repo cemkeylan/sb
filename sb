@@ -20,9 +20,15 @@ EOF
 exit 0
 }
 
-case "$1" in v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; h|help|-h|--help) usage ;; n) nobar=1 ;; x)
-	! [ -e "/tmp/sb-$USER.pid" ] && printf "There is no running instance of sb\\n" && exit 1
-	kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 ;; esac
+case "$1" in 
+    v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
+    n) nobar=1 ;; 
+    x) ! [ -e "/tmp/sb-$USER.pid" ] && \
+    	printf "There is no running instance of sb\\n" && exit 1
+    kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 
+    ;; 
+    *) usage ;;
+esac
 
 
 [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
