@@ -11,10 +11,8 @@ Installation
 
 You can install sb by doing
 
-```
-$ make
-# make install
-```
+    make install
+
 
 
 Configuration
