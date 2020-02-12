@@ -38,7 +38,7 @@ esac
 [ -z "$SLEEPTIME" ] && SLEEPTIME="1"
 
 for func in "$FUNCPATH/"* ; do [ -f "$func" ] && . "$func"; done
-for func in "$HOME/.config/sbfunc/"* ; do
+for func in "$HOME/.config/sb-func/"* ; do
 	[ -f "$func" ] && . "$func" ; done
 if [ -z "$nobar" ]; then
 	if [ -e "/tmp/sb-$USER.pid" ] ; then
