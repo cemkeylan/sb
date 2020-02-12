@@ -51,4 +51,4 @@ for func in "$HOME/.config/sb-func/"* ; do [ -f "$func" ] && . "$func" ; done
 command -v bar >/dev/null 2>&1 || bar() { storage ; ram ; gethostname ; datetime ;}
 
 [ -z "$nobar" ] && while true; do xsetroot -name " $(bar)"; sleep "$SLEEPTIME"; done && exit 0
-while true; do bar; sleep "$SLEEPTIME"; clear; done
+while true; do clear ; bar; sleep "$SLEEPTIME"; done
