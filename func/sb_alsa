@@ -1,0 +1,12 @@
+# Checks alsa volume information
+
+alsa() {
+    printf "VOL: "
+    info="$(amixer get Master)"
+    printf '%s' "$info" | grep -q "\[off\]" && \
+	    printf 'MUTED %s ' "$DELIMITER" && return 0
+
+    printf '%s' "$info" | grep -o "\[[0-9]\+%\]" | sed 's/\[//;s/\]//' | tr -d '\n'
+    printf ' %s ' "$DELIMITER"
+
+}
