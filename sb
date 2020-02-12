@@ -21,7 +21,7 @@ EOF
 exit 0
 }
 
-case "$1" in 
+[ "$1" ] && case "$1" in 
     d) noconfig=1 ;;
     v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
     n) nobar=1 ;; 
