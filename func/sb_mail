@@ -1,7 +1,9 @@
 # counts the number of items in the given directory
+# $1 New Mail Directory
+# $2 Account Name
 
 mail() {
-	[ -z "$NEWMAILDIR" ] && printf "Maildir is not set\\n" >&2 && return 1
-	[ "$(find "$NEWMAILDIR" | wc -l)" -gt 1 ] && \
-		printf "Mail: $(expr "$(find "$NEWMAILDIR" | wc -l)" - 1) $DELIMITER "
+	[ -z "$1" ] && printf "Maildir is not set\\n" >&2 && return 1
+	[ "$(find "$1" | wc -l)" -gt 1 ] && \
+		printf "${2-Mail}: $(expr "$(find "$1" | wc -l)" - 1) $DELIMITER "
 }
