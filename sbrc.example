@@ -5,7 +5,7 @@
 # Add this to ~/.config/sbrc
 
 # Delimeter. Default: "|"
-DELIMETER="|"
+DELIMITER="|"
 
 # Battery name. Default:"BAT0"
 BATTERY=""
@@ -23,13 +23,13 @@ KILLEXISTING=""
 
 # Add the modules you want to run in the bar. Do not add the "sb_" part
 # If you want to add the battery module, type battery instead of sb_battery
-# To switch from top bar to bottom bar add DELIMETER=";" to the beginning of the
+# To switch from top bar to bottom bar add DELIMITER=";" to the beginning of the
 # last module of the top bar
 bar() {
 	brightness
 	pulseaudio
 	battery
-	DELIMETER=";" datetime
+	DELIMITER=";" datetime
 	storage
 	storage /home
 	ram
