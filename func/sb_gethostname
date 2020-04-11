@@ -1,6 +1,6 @@
 # displays hostname
 
 gethostname() {
-	[ -n "$HOST" ] && printf "$HOST $DELIMITER " && return 0
-	printf "$(hostname) $DELIMITER " || return 1
+    read -r hostname < /proc/sys/kernel/hostname
+    printf '%s %s ' "$hostname" "$DELIMITER"
 }

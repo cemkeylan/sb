@@ -3,7 +3,7 @@
 # $2 Account Name
 
 mail() {
-	[ -z "$1" ] && printf "Maildir is not set\\n" >&2 && return 1
-	[ "$(find "$1" | wc -l)" -gt 1 ] && \
-		printf "${2-Mail}: $(expr "$(find "$1" | wc -l)" - 1) $DELIMITER "
+    [ -z "$1" ] && printf "Maildir is not set\\n" >&2 && return 1
+    count="$(find "$1" | wc -l)" ; [ "$count" -gt 1 ] &&
+        printf '%s: %s %s ' "${2:-Mail}" "$(( count - 1 ))" "$DELIMETER"
 }

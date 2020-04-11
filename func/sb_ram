@@ -1,9 +1,7 @@
 # checks ram usage
 
 ram() {
-	USED="$(command free -m | grep Mem: | awk '{print $3}')"
-	TOTAL="$(command free -m | grep Mem: | awk '{print $2}')"
-	printf "RAM: "
-	expr 100 \* "$USED" / "$TOTAL" | tr -d '\n' 
-	printf "%% $DELIMITER "
+	USED="$(command free -k | grep Mem: | awk '{print $3}')"
+	TOTAL="$(command free -k | grep Mem: | awk '{print $2}')"
+        printf 'RAM: %s%% %s ' "$(( 100 * USED / TOTAL ))" "$DELIMITER"
 }

@@ -1,8 +1,6 @@
 # reads ssid from iw
 
 ssid() {
-	[ -z "$1" ] && return 1
-	SSID="$(iw dev "$1" info | grep ssid | cut -d ' ' -f2- )"
-	[ -z "$SSID" ] && return 1
-	printf "$SSID $DELIMITER "
+    SSID="$(iw dev "${1:?}" info | grep ssid | cut -d ' ' -f2- )"
+    [ "$SSID" ] && printf '%s %s ' "$SSID" "$DELIMITER"
 }

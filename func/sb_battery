@@ -1,16 +1,9 @@
 # Gets the battery state and capacity
 # prints to stdout
-
-state() {
-	state="$(cat "/sys/class/power_supply/$BATTERY/status")"
-	case $state in Full) printf "=" ;; Discharging) printf "-" ;;
-		Charging) printf "+" ;; *) printf "?" ;; esac
+battery() {
+    read -r stat < "/sys/class/power_supply/${BATTERY:=BAT0}/status"
+    read -r cap < "/sys/class/power_supply/$BATTERY/capacity"
+    [ "$cap" -lt 25 ] && [ "$COLORBAR" ] && printf '\x04 '
+    printf '%s%% [%s] %s ' "$cap" "$stat" "${COLORBAR+$(printf '\x01')}$DELIMITER"
 }
-
-
-capacity() { tr -d '\n' < "/sys/class/power_supply/$BATTERY/capacity"; }
-
-battery() { 
-	[ -z "$BATTERY" ] && BATTERY="BAT0"
-	printf "BAT: $(state) $(capacity) $DELIMITER "
-}
+xsetroot -name "$(battery)"

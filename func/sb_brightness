@@ -1,7 +1,10 @@
 # Gets brightness level and prints to stdout
 
 brightness() {
-	printf "BRI: "
-	xbacklight -get 2>/dev/null | cut -d . -f 1 | tr '\n' '%% ' || return 1
-	printf " $DELIMITER "
+    for bl in /sys/class/backlight/* ; do
+        [ -d "$bl" ] || return 1
+        read -r cur < "$bl/brightness" ; read -r max < "$bl/max_brightness"
+        per="$(( cur * 100 / max ))"
+    done
+    printf 'BRI: %s%% %s ' "$per" "$DELIMETER"
 }
