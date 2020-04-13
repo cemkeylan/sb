@@ -5,5 +5,5 @@
 mail() {
     [ -z "$1" ] && printf "Maildir is not set\\n" >&2 && return 1
     count="$(find "$1" | wc -l)" ; [ "$count" -gt 1 ] &&
-        printf '%s: %s %s ' "${2:-Mail}" "$(( count - 1 ))" "$DELIMETER"
+        printf '%s: %s %s ' "${2:-Mail}" "$(( count - 1 ))" "$DELIMITER"
 }
