@@ -1,37 +1,48 @@
 #!/bin/sh
 # See the LICENSE file for copyright and license details.
+# shellcheck disable=1090
 
 FUNCPATH="./func"
 VERSION="git"
 
+pidfile="/tmp/sb-$USER.pid"
+
 out() { printf '%s\n' "$@" >&2 ;}
+
 usage() {
-    out "${0##*/} [options]" "" \
+    out "${0##*/} [-dnvx]" "" \
         " Options:" \
         " -d        Use the default configuration" \
         " -n        Print to stdout instead of the bar" \
-        " -x        Kill existing sb instance" \
-        " -v        Print version number and exit" ""\
+        " -v        Print version number and exit" \
+        " -x        Kill existing sb instance" "" \
         "${0##*/}-$VERSION" \
         "2019-2020 (c) Cem Keylan"
     exit 1
 }
 
-while [ "$1" ] ; do case "$1" in 
-    -d) noconfig=1 ; shift ;;
-    -v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;; 
-    -n) nobar=1 ; shift ;; 
-    -x) ! [ -e "/tmp/sb-$USER.pid" ] && \
-    	printf "There is no running instance of sb\\n" && exit 1
-    kill "$(cat "/tmp/sb-$USER.pid")"; rm "/tmp/sb-$USER.pid"; exit 0 
-    ;; 
-    *) usage ;;
-esac ; done
+cleanup() { rm -f "$pidfile" ;}
+
+while [ "$1" ] ; do
+    case "$1" in
+        -d) noconfig=1 ; shift ;;
+        -v) printf '%s\n' "${0##*/}-$VERSION"; exit 0 ;;
+        -n) nobar=1 ; shift ;;
+        -x) [ -e "/tmp/sb-$USER.pid" ] || {
+                out "There is no running instance of sb"
+                exit 1
+            }
+            read -r pid < "$pidfile"
+            kill "$pid"
+            rm "$pidfile"
+            exit 0
+            ;;
+        *) usage ;;
+    esac
+done
 
 
-[ "$noconfig" ] || { [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc" ;}
-[ "$DELIMITER" ] || DELIMITER="|"
-[ "$SLEEPTIME" ] || SLEEPTIME="1"
+[ "$noconfig" != 1 ] && [ -e "$HOME/.config/sbrc" ] && . "$HOME/.config/sbrc"
 
 # Load Functions
 for func in "$FUNCPATH/"* ; do [ -f "$func" ] && . "$func"; done
@@ -39,12 +50,29 @@ for func in "$HOME/.config/sb-func/"* ; do [ -f "$func" ] && . "$func" ; done
 
 # Unless running from the command line, check for
 # an existing instance
-[ "$nobar" ] || { [ -e "/tmp/sb-$USER.pid" ] && {
-	[ -z "$KILLEXISTING" ] && printf 'ERROR: sb is already running\nIf you think otherwise, remove /tmp/sb-%s$.pid manually.\n' "$USER" && exit 1
-	kill "$(cat "/tmp/sb-$USER.pid")" 2>/dev/null ;}
-	printf '%s\n' "$$" > "/tmp/sb-$USER.pid" ;}
+[ "$nobar" ] || {
+    [ -e "/tmp/sb-$USER.pid" ] && {
+        [ "$KILLEXISTING" != 1 ] && {
+            out "Error: sb is already running." \
+                "If you think that this is not true, run 'sb -x'."
+            exit 1
+        }
+        read -r pid < "/tmp/sb-$USER.pid"
+	kill "$pid" 2>/dev/null
+    }
+    printf '%s\n' "$$" > "/tmp/sb-$USER.pid"
+}
 
-command -v bar >/dev/null 2>&1 || bar() { storage ; ram ; gethostname ; datetime ;}
+: "${DELIMITER:=|}"
 
-[ -z "$nobar" ] && while true; do xsetroot -name " $(bar)"; sleep "$SLEEPTIME"; done && exit 0
-while true; do clear ; bar; sleep "$SLEEPTIME"; done
+# If the bar command is not defined, set a default bar.
+command -v bar >/dev/null 2>&1 ||
+    bar() { storage ; ram ; gethostname ; datetime ;}
+
+trap cleanup EXIT INT QUIT HUP
+
+if [ "$nobar" = 1 ]; then
+    while :; do clear; bar; sleep "${SLEEPTIME:=1}"; done
+else
+    while :; do xsetroot -name " $(bar)"; sleep "${SLEEPTIME:=1}"; done
+fi
