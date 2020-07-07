@@ -72,7 +72,7 @@ command -v bar >/dev/null 2>&1 ||
 trap cleanup EXIT INT QUIT HUP
 
 if [ "$nobar" = 1 ]; then
-    while :; do clear; bar; sleep "${SLEEPTIME:=1}"; done
+    while :; do clear; bar; printf '\n'; sleep "${SLEEPTIME:=1}"; done
 else
     while :; do xsetroot -name " $(bar)"; sleep "${SLEEPTIME:=1}"; done
 fi
