@@ -21,7 +21,7 @@ usage() {
     exit 1
 }
 
-cleanup() { rm -f "$pidfile" ;}
+cleanup() { rm -f "$pidfile" ; exit 0;}
 
 while [ "$1" ] ; do
     case "$1" in
