@@ -72,7 +72,15 @@ command -v bar >/dev/null 2>&1 ||
 trap cleanup EXIT INT QUIT HUP
 
 if [ "$nobar" = 1 ]; then
-    while :; do clear; bar; printf '\n'; sleep "${SLEEPTIME:=1}"; done
+    while :; do
+        # If stdout belongs to sb, clear the screen each time the bar is being
+        # printed. If stdout doesn't belong to us, that means sb is being piped
+        # and we are most likely not dealing with a terminal. In such a case we
+        # should not clear the screen.
+        [ -t 1 ] && clear
+        printf ' %s\n' "$(bar)"
+        sleep "${SLEEPTIME:=1}"
+    done
 else
     while :; do xsetroot -name " $(bar)"; sleep "${SLEEPTIME:=1}"; done
 fi
