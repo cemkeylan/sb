@@ -5,8 +5,11 @@ storage() {
 	DISK="$1"
 	[ -z "$DISK" ] && DISK="/"
 	printf "$DISK: "
-	command df -h | grep "$DISK\$" | awk '{print $3}' | sed s/G// | tr -d '\n'
-	printf "/"
-	command df -h | grep "$DISK\$" | awk '{print $2}' | sed s/G/\ GB/ | tr -d '\n'
+        command df -h | while read -r _ size used _ _ mnt; do
+            [ "$mnt" = "$DISK" ] || continue
+            used=${used%G} size=${size%G}
+            printf "$used/$size GB"
+            break
+        done
 	printf " $DELIMITER "
 }
